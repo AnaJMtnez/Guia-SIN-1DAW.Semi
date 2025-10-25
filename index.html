@@ -14,11 +14,11 @@
    - Interaction: Clic para expandir/colapsar temas.
    - Justification: Maneja la densidad de 8 SAs de forma limpia, permitiendo al usuario enfocarse en la unidad actual.
    - Library/Method: Vanilla JS (toggle de clases 'hidden').
-3. Report Info: Cronograma del curso (Fechas de SAs de p. 28 del PDF).
-   - Goal: Informar (Línea de tiempo).
-   - Viz/Method: Lista de eventos estructurada (HTML).
+3. Report Info: Cronograma del curso (Fechas de SAs de p. 28 del PDF) + Fechas de exámenes y tutorías.
+   - Goal: Informar (Línea de tiempo y Fechas Clave).
+   - Viz/Method: Lista de eventos estructurada (HTML) para SAs, y listas/párrafos estructurados para exámenes/tutorías.
    - Interaction: Ninguna.
-   - Justification: Proporciona un calendario claro del ritmo del curso. No se incluyen fechas de examen específicas al no haber sido proporcionadas para *este* módulo.
+   - Justification: Proporciona un calendario claro del ritmo del curso y las fechas importantes. Modificado para reflejar que SA8 es en 2º curso y añadir fechas específicas.
    - Library/Method: HTML/Tailwind.
 -->
 <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
@@ -169,7 +169,7 @@
                 <p class="text-lg text-gray-600 mb-6">
                     El módulo cubre todo, desde el hardware básico hasta la gestión de redes. El contenido se divide en Resultados de Aprendizaje (lo que sabrás hacer) y Situaciones de Aprendizaje (cómo lo aprenderás).
                 </p>
-                
+
                 <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Resultados de Aprendizaje (RA)</h2>
                 <ul class="list-disc pl-5 space-y-2 mb-8">
                     <li><strong>RA1:</strong> Evaluar sistemas informáticos identificando sus componentes y características.</li>
@@ -287,7 +287,7 @@
                     </div>
                     <!-- SA 8 -->
                     <button class="accordion-button" data-accordion="sa8">
-                        <span>SA 8: Formación en Empresa (15h)</span>
+                        <span>SA 8: Formación en Empresa (15h) <span class="text-sm font-normal text-indigo-600 ml-2">(Se realiza en 2º curso)</span></span>
                         <span class="accordion-arrow">&#9654;</span>
                     </button>
                     <div id="sa8" class="accordion-content hidden">
@@ -329,7 +329,7 @@
                         <ul class="list-disc pl-5">
                             <li><strong>AA (Actividades de Aula):</strong> Tareas y prácticas.</li>
                             <li><strong>PO (Prueba Objetiva):</strong> Exámenes teóricos/prácticos.</li>
-                            <li><strong>FE (Formación en Empresa):</strong> Evaluación del RA7 en la empresa.</li>
+                            <li><strong>FE (Formación en Empresa):</strong> Evaluación del RA7 en la empresa (en 2º curso).</li>
                         </ul>
                     </div>
                 </div>
@@ -338,11 +338,11 @@
             <!-- SECCIÓN 4: CALENDARIO -->
             <section id="calendario" class="content-section card">
                 <p class="text-lg text-gray-600 mb-6">
-                    Organiza tu tiempo. No hay fechas de exámenes fijas en esta guía, pero sí un cronograma orientativo de las Situaciones de Aprendizaje (SA) para que puedas seguir el ritmo del curso.
+                    Aquí encontrarás las fechas importantes del curso, incluyendo el cronograma orientativo de las Situaciones de Aprendizaje (SA), los exámenes parciales y las convocatorias finales.
                 </p>
-                
-                <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Cronograma Orientativo del Curso</h2>
-                <div class="space-y-4">
+
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Cronograma Orientativo (Curso 2025-2026)</h2>
+                <div class="space-y-4 mb-8">
                     <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
                         <h3 class="font-semibold text-gray-800">SA 1: Explotación de sistemas</h3>
                         <p class="text-gray-700">10 de sep. 2025 - 08 de oct. 2025</p>
@@ -372,24 +372,67 @@
                         <h3 class="font-semibold text-gray-800">SA 7: Explotación de aplicaciones</h3>
                         <p class="text-gray-700">16 de abr. 2026 - 22 de abr. 2026</p>
                     </div>
-                    <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
-                        <h3 class="font-semibold text-gray-800">SA 8: Formación en Empresa</h3>
-                        <p class="text-gray-700">23 de abr. 2026 - 20 de may. 2026</p>
+                </div>
+                 <p class="mb-8 text-md text-gray-600 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                    <strong>Nota Importante:</strong> La <strong>SA 8 (Formación en Empresa)</strong> se realiza durante el <strong>segundo curso</strong> académico y no se incluye en este cronograma del primer año.
+                </p>
+
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Fechas Clave (Exámenes y Tutorías)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Exámenes -->
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Exámenes Parciales</h3>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><strong>1ª Evaluación:</strong> 19/11/2025 (Miércoles) de 15:00 a 17:45.</li>
+                            <li><strong>2ª Evaluación:</strong> 04/03/2026 (Miércoles) de 18:05 a 20:50.</li>
+                            <li><strong>3ª Evaluación:</strong> 27/05/2026 (Miércoles) de 18:05 a 20:50.</li>
+                        </ul>
+                        <h3 class="text-xl font-semibold text-gray-800 pt-2">Convocatorias Oficiales (Final)</h3>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><strong>Ordinaria:</strong> 03/06/2026 (Miércoles) de 15:00 a 17:45.</li>
+                            <li><strong>Extraordinaria:</strong> 25/06/2026 (Jueves) de 18:05 a 20:50.</li>
+                        </ul>
+                    </div>
+                    <!-- Tutorías -->
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Tutorías</h3>
+                         <ul class="list-disc pl-5 space-y-1">
+                            <li><strong>Colectivas:</strong> Miércoles de 15:00 a 16:50.</li>
+                            <li><strong>Individuales (Horario Fijo):</strong>
+                                <ul class="list-['-_'] pl-4">
+                                    <li>Miércoles de 16:50 a 17:45.</li>
+                                    <li>Miércoles de 18:05 a 19:00.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Individuales (A demanda):</strong> 2 horas semanales adicionales, a concretar con la profesora.</li>
+                        </ul>
+                        <p class="text-sm text-gray-500 pt-2">Recuerda concretar las tutorías individuales a demanda con la profesora.</p>
                     </div>
                 </div>
+
             </section>
 
             <!-- SECCIÓN 5: TUTORÍAS Y CONTACTO -->
             <section id="tutorias" class="content-section card">
                 <p class="text-lg text-gray-600 mb-6">
-                    Utiliza los canales oficiales para resolver dudas. La comunicación es clave en la modalidad semipresencial.
+                    Utiliza los canales oficiales para resolver dudas y consultar los horarios de tutoría específicos. La comunicación es clave en la modalidad semipresencial.
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Columna de Horarios y Contacto -->
                     <div class="space-y-6">
-                        <div>
-                            <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Horarios de Tutorías</h2>
-                            <p class="text-gray-700">El módulo tiene asignadas <strong>4 horas semanales</strong>. Los horarios específicos de tutorías colectivas e individuales se comunicarán a través de AULES y al inicio de curso.</p>
+                         <div>
+                            <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Horarios Específicos de Tutorías</h2>
+                             <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                <li><strong>Colectivas:</strong> Miércoles de 15:00 a 16:50.</li>
+                                <li><strong>Individuales (Horario Fijo):</strong>
+                                    <ul class="list-['-_'] pl-4">
+                                        <li>Miércoles de 16:50 a 17:45.</li>
+                                        <li>Miércoles de 18:05 a 19:00.</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Individuales (A demanda):</strong> 2 horas semanales adicionales, a concretar con la profesora.</li>
+                            </ul>
+                            <p class="text-sm text-gray-500 mt-2">Es importante acordar las tutorías individuales a demanda.</p>
                         </div>
                         <div>
                             <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Canales de Comunicación</h2>
@@ -404,19 +447,146 @@
                             <p class="text-sm text-gray-500 mt-2">Utiliza los foros de AULES y el canal de Teams para dudas generales.</p>
                         </div>
                     </div>
-                    
+
                     <!-- Columna de Ubicación -->
                     <div>
                         <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Ubicación</h2>
                         <p class="mb-4">Las tutorías colectivas presenciales y los exámenes se realizarán, por norma general, en el aula de informática <strong>INFORMATICA 2</strong> (planta baja).</p>
-                        <img src="img/mapa_aula.jpg" alt="Mapa del aula INFORMATICA 2 en el IES Poeta Paco Mollá (Planta Baja)" class="w-full rounded-lg border border-gray-300 shadow-md"
-                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/f0f000/999?text=Mapa+del+Aula+(INFORMATICA+2)';">
+                        <img src="img/CURSO 2025-26 PLANTA BAJA.jpg" alt="Mapa del aula INFORMATICA 2 en el IES Poeta Paco Mollá (Planta Baja)" class="w-full rounded-lg border border-gray-300 shadow-md"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/f0f0f0/999?text=Mapa+del+Aula+(INFORMATICA+2)';">
                     </div>
                 </div>
             </section>
         </main>
 
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // --- Lógica de Navegación por Pestañas ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const mainContent = document.querySelector('main');
+
+            function showSection(targetId) {
+                contentSections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    if (link.dataset.target === targetId) {
+                        link.classList.add('nav-link-active');
+                    } else {
+                        link.classList.remove('nav-link-active');
+                    }
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const targetId = e.target.dataset.target;
+                    showSection(targetId);
+                });
+            });
+
+            showSection('inicio');
+
+            // --- Lógica del Gráfico Chart.js ---
+            const raChartCtx = document.getElementById('raChart');
+            if (raChartCtx) {
+                const raChart = new Chart(raChartCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: [
+                            'RA1: Evalúa sistemas (15%)',
+                            'RA2: Instala SO (7%)',
+                            'RA3: Gestiona info (13%)',
+                            'RA4: Gestiona SO (25%)',
+                            'RA5: Interconecta redes (17%)',
+                            'RA6: Opera en red (15%)',
+                            'RA7: Elabora doc (8%)'
+                        ],
+                        datasets: [{
+                            label: 'Ponderación de Notas',
+                            data: [15, 7, 13, 25, 17, 15, 8],
+                            backgroundColor: [
+                                'rgba(67, 56, 202, 0.7)',  // Indigo
+                                'rgba(59, 130, 246, 0.7)', // Blue
+                                'rgba(14, 165, 233, 0.7)', // Sky
+                                'rgba(239, 68, 68, 0.7)',   // Red
+                                'rgba(249, 115, 22, 0.7)',  // Orange
+                                'rgba(245, 158, 11, 0.7)',  // Amber
+                                'rgba(16, 185, 129, 0.7)'  // Green
+                            ],
+                            borderColor: [
+                                'rgba(67, 56, 202, 1)',
+                                'rgba(59, 130, 246, 1)',
+                                'rgba(14, 165, 233, 1)',
+                                'rgba(239, 68, 68, 1)',
+                                'rgba(249, 115, 22, 1)',
+                                'rgba(245, 158, 11, 1)',
+                                'rgba(16, 185, 129, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    boxWidth: 12,
+                                    font: {
+                                        size: 11
+                                    },
+                                    padding: 15
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label = label.split(':')[0];
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += ': ' + context.parsed + '%';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- Lógica de Acordeón ---
+            const accordionContainer = document.getElementById('accordion-container');
+            if (accordionContainer) {
+                accordionContainer.addEventListener('click', function(e) {
+                    const button = e.target.closest('.accordion-button');
+                    if (button) {
+                        const contentId = button.dataset.accordion;
+                        const content = document.getElementById(contentId);
+
+                        button.classList.toggle('open');
+                        content.classList.toggle('hidden');
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
