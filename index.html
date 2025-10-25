@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<!-- Chosen Palette: Warm Neutral with Indigo Accent -->
+<!-- Application Structure Plan: SPA con navegación por pestañas (Inicio, Contenido, Evaluación, Calendario, Tutorías). Esta arquitectura es idónea para una guía didáctica, ya que permite a los estudiantes un acceso no lineal y orientado a tareas (p. ej., 'ver notas', 'ver temario'). Es superior a un PDF lineal para la consulta rápida. La navegación JS gestiona la visibilidad de las secciones. -->
+<!-- Visualization & Content Choices: 
+1. Report Info: Ponderación de Resultados de Aprendizaje (RA1-RA7 con porcentajes).
+   - Goal: Informar/Comparar.
+   - Viz/Method: Gráfico de Donut (Chart.js).
+   - Interaction: Hover para tooltip.
+   - Justification: Visualiza el peso de cada RA en la nota final, mucho más claro que una tabla.
+   - Library/Method: Chart.js (Canvas).
+2. Report Info: Situaciones de Aprendizaje (SA 1-8 y sus temas).
+   - Goal: Organizar/Explorar.
+   - Viz/Method: Lista de Acordeón/Colapsable.
+   - Interaction: Clic para expandir/colapsar temas.
+   - Justification: Maneja la densidad de 8 SAs de forma limpia, permitiendo al usuario enfocarse en la unidad actual.
+   - Library/Method: Vanilla JS (toggle de clases 'hidden').
+3. Report Info: Cronograma del curso (Fechas de SAs de p. 28 del PDF).
+   - Goal: Informar (Línea de tiempo).
+   - Viz/Method: Lista de eventos estructurada (HTML).
+   - Interaction: Ninguna.
+   - Justification: Proporciona un calendario claro del ritmo del curso. No se incluyen fechas de examen específicas al no haber sido proporcionadas para *este* módulo.
+   - Library/Method: HTML/Tailwind.
+-->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Didáctica: Sistemas Informáticos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfbf9;
+            color: #1f2937;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            max-height: 350px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .nav-link {
+            padding: 0.75rem 1rem;
+            margin: 0 0.25rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            color: #374151;
+            transition: all 0.2s ease-in-out;
+            border-bottom: 3px solid transparent;
+        }
+        .nav-link:hover {
+            background-color: #e5e7eb;
+            color: #111827;
+        }
+        .nav-link-active {
+            color: #4338ca;
+            border-bottom-color: #4338ca;
+            font-weight: 600;
+        }
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+            padding: 1.5rem;
+        }
+        .accordion-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+        .accordion-button:hover {
+            background-color: #f9fafb;
+        }
+        .accordion-content {
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-top: 0;
+            border-radius: 0 0 0.5rem 0.5rem;
+            background-color: #fdfdfd;
+        }
+        .accordion-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+        .accordion-arrow {
+            transition: transform 0.3s;
+        }
+        .accordion-button.open .accordion-arrow {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+
+        <!-- Portada y Título -->
+        <header class="mb-6 p-6 bg-white rounded-lg shadow border border-gray-200">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h1 class="text-3xl font-bold text-indigo-700">Guía Didáctica: Sistemas Informáticos (SIN)</h1>
+                    <p class="text-xl text-gray-600 mt-1">Desarrollo de Aplicaciones Web (DAW) | 2025-2026</p>
+                </div>
+                <div class="text-left md:text-right mt-4 md:mt-0">
+                    <p class="text-md font-medium text-gray-700"><strong>Profesor/a:</strong> Ana J. Martínez Montesinos</p>
+                    <p class="text-sm text-gray-500">Modalidad Semipresencial | 166 Horas</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navegación por Pestañas -->
+        <nav class="flex flex-wrap justify-center bg-white p-2 rounded-lg shadow-sm border border-gray-200 mb-6">
+            <button class="nav-link nav-link-active" data-target="inicio">Inicio</button>
+            <button class="nav-link" data-target="contenido">Contenido</button>
+            <button class="nav-link" data-target="evaluacion">Evaluación</button>
+            <button class="nav-link" data-target="calendario">Calendario</button>
+            <button class="nav-link" data-target="tutorias">Tutorías y Contacto</button>
+        </nav>
+
+        <!-- Contenedor Principal de Contenido -->
+        <main>
+            <!-- SECCIÓN 1: INICIO -->
+            <section id="inicio" class="content-section card">
+                <p class="text-lg text-gray-600 mb-6">
+                    Bienvenido a la guía interactiva del módulo de Sistemas Informáticos (SIN). Esta aplicación centraliza toda la información que necesitas para cursar con éxito la asignatura. Navega por las pestañas para explorar el temario, entender cómo serás evaluado y conocer las fechas clave.
+                </p>
+                <div class="space-y-6">
+                    <div>
+                        <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Presentación</h2>
+                        <p>La Formación Profesional semipresencial tiene como finalidad la formación de personas que quieren mejorar su cualificación o prepararse para otras profesiones y que, por circunstancias personales, no pueden cursar en régimen presencial. Esta modalidad ofrece autonomía, flexibilidad y acceso 24/7 a los materiales a través de la plataforma AULES.</p>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Descripción del Módulo (0483)</h2>
+                        <p>Este módulo de <strong>166 horas</strong> se imparte en el primer curso de DAW. Es fundamental, ya que proporciona las competencias para configurar y explotar sistemas informáticos, gestionar sistemas operativos (Windows/Linux), entender el almacenamiento, interconectar sistemas en red y aplicar medidas de seguridad. Es la base sobre la que se construirán los demás módulos del ciclo.</p>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Metodología</h2>
+                        <p>Se seguirá una metodología activa, centrada en el <strong>Aprendizaje Basado en la Resolución de Problemas (ABP)</strong> y la <strong>Clase Invertida</strong>. Se espera que revises los contenidos teóricos en casa para dedicar el tiempo de clase a actividades prácticas, discusiones y trabajo colaborativo, convirtiéndote en el protagonista de tu aprendizaje.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: CONTENIDO -->
+            <section id="contenido" class="content-section card">
+                <p class="text-lg text-gray-600 mb-6">
+                    El módulo cubre todo, desde el hardware básico hasta la gestión de redes. El contenido se divide en Resultados de Aprendizaje (lo que sabrás hacer) y Situaciones de Aprendizaje (cómo lo aprenderás).
+                </p>
+                
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Resultados de Aprendizaje (RA)</h2>
+                <ul class="list-disc pl-5 space-y-2 mb-8">
+                    <li><strong>RA1:</strong> Evaluar sistemas informáticos identificando sus componentes y características.</li>
+                    <li><strong>RA2:</strong> Instalar sistemas operativos planificando el proceso e interpretando documentación.</li>
+                    <li><strong>RA3:</strong> Gestionar la información del sistema, estructuras de almacenamiento y copias de seguridad.</li>
+                    <li><strong>RA4:</strong> Gestionar sistemas operativos (usuarios, permisos, procesos, scripts) con comandos y herramientas.</li>
+                    <li><strong>RA5:</strong> Interconectar sistemas en red configurando dispositivos y protocolos.</li>
+                    <li><strong>RA6:</strong> Operar sistemas en red gestionando recursos e identificando restricciones de seguridad.</li>
+                    <li><strong>RA7:</strong> Elaborar documentación valorando y utilizando aplicaciones informáticas.</li>
+                </ul>
+
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Situaciones de Aprendizaje (SA)</h2>
+                <div class="space-y-3" id="accordion-container">
+                    <!-- SA 1 -->
+                    <button class="accordion-button" data-accordion="sa1">
+                        <span>SA 1: Explotación de sistemas informáticos (20h)</span>
+                        <span class="accordion-arrow">&#9654;</span>
+                    </button>
+                    <div id="sa1" class="accordion-content hidden">
+                        <ul>
+                            <li>Arquitectura de ordenadores (Von Neumann).</li>
+                            <li>Componentes físicos (Hardware): Placa base, CPU, RAM.</li>
+                            <li>Sistemas de almacenamiento e interfaces (E/S).</li>
+                            <li>Proceso de puesta en marcha y diagnóstico.</li>
+                            <li>Normas de seguridad y prevención de riesgos.</li>
+                        </ul>
+                    </div>
+                    <!-- SA 2 -->
+                    <button class="accordion-button" data-accordion="sa2">
+                        <span>SA 2: Instalación de Sistemas Operativos (10h)</span>
+                        <span class="accordion-arrow">&#9654;</span>
+                    </button>
+                    <div id="sa2" class="accordion-content hidden">
+                        <ul>
+                            <li>Funciones y arquitectura de un Sistema Operativo.</li>
+                            <li>Máquinas virtuales (Virtualización).</li>
+                            <li>Gestores de arranque y particiones.</li>
+                            <li>Instalación de SO libres (Linux) y propietarios (Windows).</li>
+                            <li>Licencias y tipos de licencias (Open Source, Propietario).</li>
+                            <li>Actualización y recuperación del sistema.</li>
+                        </ul>
+                    </div>
+                    <!-- SA 3 -->
+                    <button class="accordion-button" data-accordion="sa3">
+                        <span>SA 3: Gestión de la información (20h)</span>
+                        <span class="accordion-arrow">&#9654;</span>
+                    </button>
+                    <div id="sa3" class="accordion-content hidden">
+                        <ul>
+                            <li>Sistemas de ficheros (FAT32, NTFS, ext4).</li>
+                            <li>Gestión de archivos y directorios con comandos y entorno gráfico.</li>
+                            <li>Administración de discos: Particiones y volúmenes.</li>
+                            <li>Sistemas RAID y tolerancia a fallos.</li>
+                            <li>Realización y restauración de copias de seguridad.</li>
+                            <li>Automatización de tareas.</li>
+                        </ul>
+                    </div>
+                    <!-- SA 4 -->
+                    <button class="accordion-button" data-accordion="sa4">
+                        <span>SA 4: Configuración de sistemas operativos (42h)</span>
+                        <span class="accordion-arrow">&#9654;</span>
+                    </button>
+                    <div id="sa4" class="accordion-content hidden">
+                        <ul>
+                            <li>Gestión de usuarios y grupos locales.</li>
+                            <li>Seguridad de cuentas y contraseñas.</li>
+                            <li>Permisos locales y listas de control de acceso (ACLs).</li>
+                            <li>Gestión de servicios y procesos.</li>
+                            <li>Monitorización del sistema (logs).</li>
+                            <li>Automatización de sistemas (Scripts Bash y PowerShell).</li>
+                        </ul>
+                    </div>
+                    <!-- SA 5 -->
+                    <button class="accordion-button" data-accordion="sa5">
+                        <span>SA 5: Conexión de sistemas de red (32h)</span>
+                        <span class="accordion-arrow">&#9654;</span>
+                    </button>
+                    <div id="sa5" class="accordion-content hidden">
+                        <ul>
+                            <li>Arquitectura de red (TCP/IP).</li>
+                            <li>Configuración de red: IP, máscara, puerta de enlace (IPv4/IPv6).</li>
+                            <li>Resolución de nombres (DNS).</li>
+                            <li>Redes cableadas (LAN) e inalámbricas (WLAN).</li>
+                            <li>Dispositivos de interconexión (Switch, Router).</li>
+                            <li>Seguridad en redes (WEP, WPA, WPA2-PSK).</li>
+                            <li>Protocolos seguros (Cifrado, Encriptación).</li>
+                        </ul>
+                    </div>
+                    <!-- SA 6 -->
+                    <button class="accordion-button" data-accordion="sa6">
+                        <span>SA 6: Gestión de recursos en una red (22h)</span>
+                        <span class="accordion-arrow">&#9654;</span>
+                    </button>
+                    <div id="sa6" class="accordion-content hidden">
+                        <ul>
+                            <li>Permisos de red vs. permisos locales.</li>
+                            <li>Servidores de ficheros e impresión.</li>
+                            <li>Técnicas de conexión remota (SSH, RDP).</li>
+                            <li>Herramientas de cifrado y cortafuegos (Firewall).</li>
+                            <li>Implantación y explotación de dominios.</li>
+                        </ul>
+                    </div>
+                    <!-- SA 7 -->
+                    <button class="accordion-button" data-accordion="sa7">
+                        <span>SA 7: Explotación de aplicaciones (5h)</span>
+                        <span class="accordion-arrow">&#9654;</span>
+                    </button>
+                    <div id="sa7" class="accordion-content hidden">
+                        <ul>
+                            <li>Tipos de software, licencias y requisitos.</li>
+                            <li>Herramientas ofimáticas y de trabajo colaborativo.</li>
+                            <li>Correo, mensajería y transferencia de ficheros (FTP).</li>
+                            <li>Búsqueda de documentación técnica en Internet.</li>
+                        </ul>
+                    </div>
+                    <!-- SA 8 -->
+                    <button class="accordion-button" data-accordion="sa8">
+                        <span>SA 8: Formación en Empresa (15h)</span>
+                        <span class="accordion-arrow">&#9654;</span>
+                    </button>
+                    <div id="sa8" class="accordion-content hidden">
+                        <ul>
+                            <li>Parte del RA7 se desarrolla en la empresa (modalidad dualizable).</li>
+                            <li>Aplicación de herramientas ofimáticas, colaborativas y de búsqueda de documentación en un entorno de trabajo real.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: EVALUACIÓN -->
+            <section id="evaluacion" class="content-section card">
+                <p class="text-lg text-gray-600 mb-6">
+                    La evaluación es continua y se basa en la superación de todos los Resultados de Aprendizaje (RA). Aquí puedes ver el peso de cada RA en tu nota final y los métodos que usaremos para evaluarte.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Ponderación de Notas (RA)</h2>
+                        <div class="chart-container">
+                            <canvas id="raChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Reglas Clave de Evaluación</h2>
+                        <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
+                            <h3 class="font-semibold text-indigo-800">Evaluación Continua</h3>
+                            <p class="text-indigo-700">La nota se obtiene de la media ponderada de los RA. Las actividades de aula (AA) y pruebas (PO) son obligatorias.</p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                            <h3 class="font-semibold text-yellow-800">¡Nota Provisional (RA7)!</h3>
+                            <p class="text-yellow-700">El 4% del módulo (parte del RA7) se cursa en la Formación en Empresa (SA8) en el <strong>2º curso</strong>. Por tanto, la nota final de este módulo en 1º será <strong>provisional</strong> hasta completar dicha formación.</p>
+                        </div>
+                        <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+                            <h3 class="font-semibold text-red-800">¡Importante!</h3>
+                            <p class="text-red-700">Para superar el módulo, es necesario superar (nota >= 5) <strong>todos</strong> los Resultados de Aprendizaje (RA). Si algún RA no está superado, la nota final máxima del módulo será de 4.</p>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-700 pt-4">Instrumentos de Evaluación</h3>
+                        <ul class="list-disc pl-5">
+                            <li><strong>AA (Actividades de Aula):</strong> Tareas y prácticas.</li>
+                            <li><strong>PO (Prueba Objetiva):</strong> Exámenes teóricos/prácticos.</li>
+                            <li><strong>FE (Formación en Empresa):</strong> Evaluación del RA7 en la empresa.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 4: CALENDARIO -->
+            <section id="calendario" class="content-section card">
+                <p class="text-lg text-gray-600 mb-6">
+                    Organiza tu tiempo. No hay fechas de exámenes fijas en esta guía, pero sí un cronograma orientativo de las Situaciones de Aprendizaje (SA) para que puedas seguir el ritmo del curso.
+                </p>
+                
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Cronograma Orientativo del Curso</h2>
+                <div class="space-y-4">
+                    <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                        <h3 class="font-semibold text-gray-800">SA 1: Explotación de sistemas</h3>
+                        <p class="text-gray-700">10 de sep. 2025 - 08 de oct. 2025</p>
+                    </div>
+                    <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                        <h3 class="font-semibold text-gray-800">SA 2: Instalación de SO</h3>
+                        <p class="text-gray-700">09 de oct. 2025 - 22 de oct. 2025</p>
+                    </div>
+                    <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                        <h3 class="font-semibold text-gray-800">SA 3: Gestión de la información</h3>
+                        <p class="text-gray-700">23 de oct. 2025 - 19 de nov. 2025</p>
+                    </div>
+                    <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                        <h3 class="font-semibold text-gray-800">SA 4: Configuración de SO</h3>
+                        <p class="text-gray-700">19 de dic. 2025 - 28 de ene. 2026</p>
+                        <p class="text-sm text-gray-500 mt-1">(Nota: Hay un período de descanso/evaluación entre SA3 y SA4 según el calendario).</p>
+                    </div>
+                    <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                        <h3 class="font-semibold text-gray-800">SA 5: Conexión de redes</h3>
+                        <p class="text-gray-700">29 de ene. 2026 - 11 de mar. 2026</p>
+                    </div>
+                    <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                        <h3 class="font-semibold text-gray-800">SA 6: Gestión de recursos en red</h3>
+                        <p class="text-gray-700">12 de mar. 2026 - 15 de abr. 2026</p>
+                    </div>
+                    <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                        <h3 class="font-semibold text-gray-800">SA 7: Explotación de aplicaciones</h3>
+                        <p class="text-gray-700">16 de abr. 2026 - 22 de abr. 2026</p>
+                    </div>
+                    <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                        <h3 class="font-semibold text-gray-800">SA 8: Formación en Empresa</h3>
+                        <p class="text-gray-700">23 de abr. 2026 - 20 de may. 2026</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 5: TUTORÍAS Y CONTACTO -->
+            <section id="tutorias" class="content-section card">
+                <p class="text-lg text-gray-600 mb-6">
+                    Utiliza los canales oficiales para resolver dudas. La comunicación es clave en la modalidad semipresencial.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Columna de Horarios y Contacto -->
+                    <div class="space-y-6">
+                        <div>
+                            <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Horarios de Tutorías</h2>
+                            <p class="text-gray-700">El módulo tiene asignadas <strong>4 horas semanales</strong>. Los horarios específicos de tutorías colectivas e individuales se comunicarán a través de AULES y al inicio de curso.</p>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Canales de Comunicación</h2>
+                            <h3 class="font-semibold text-gray-800">Profesora</h3>
+                            <p class="text-gray-700">Ana J. Martínez Montesinos</p>
+                            <h3 class="font-semibold text-gray-800 mt-4">Correo Electrónico</h3>
+                            <p class="text-gray-700"><code>anamartinez.informatica@iespacomolla.es</code></p>
+                            <p class="text-gray-700"><code>aj.martinezmontesi@edu.gva.es</code></p>
+                            <h3 class="font-semibold text-gray-800 mt-4">Plataformas</h3>
+                            <p class="text-gray-700">Mensajería directa de <strong>AULES</strong> y <strong>WebFamilia</strong>.</p>
+                            <p class="text-sm text-gray-500 mt-2">Utiliza los foros de AULES para dudas generales.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna de Ubicación -->
+                    <div>
+                        <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Ubicación</h2>
+                        <p class="mb-4">Las tutorías colectivas presenciales y los exámenes se realizarán, por norma general, en el aula de informática <strong>INFORMATICA 2</strong> (planta baja).</p>
+                        <img src="img/CURSO 2025-26 PLANTA BAJA.jpg" alt="Mapa del aula INFORMATICA 2 en el IES Poeta Paco Mollá (Planta Baja)" class="w-full rounded-lg border border-gray-300 shadow-md"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/f0f000/999?text=Mapa+del+Aula+(INFORMATICA+2)';">
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- Lógica de Navegación por Pestañas ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const mainContent = document.querySelector('main');
+
+            function showSection(targetId) {
+                contentSections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    if (link.dataset.target === targetId) {
+                        link.classList.add('nav-link-active');
+                    } else {
+                        link.classList.remove('nav-link-active');
+                    }
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const targetId = e.target.dataset.target;
+                    showSection(targetId);
+                });
+            });
+
+            showSection('inicio');
+
+            // --- Lógica del Gráfico Chart.js ---
+            const raChartCtx = document.getElementById('raChart');
+            if (raChartCtx) {
+                const raChart = new Chart(raChartCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: [
+                            'RA1: Evalúa sistemas (15%)',
+                            'RA2: Instala SO (7%)',
+                            'RA3: Gestiona info (13%)',
+                            'RA4: Gestiona SO (25%)',
+                            'RA5: Interconecta redes (17%)',
+                            'RA6: Opera en red (15%)',
+                            'RA7: Elabora doc (8%)'
+                        ],
+                        datasets: [{
+                            label: 'Ponderación de Notas',
+                            data: [15, 7, 13, 25, 17, 15, 8],
+                            backgroundColor: [
+                                'rgba(67, 56, 202, 0.7)',  // Indigo
+                                'rgba(59, 130, 246, 0.7)', // Blue
+                                'rgba(14, 165, 233, 0.7)', // Sky
+                                'rgba(239, 68, 68, 0.7)',   // Red
+                                'rgba(249, 115, 22, 0.7)',  // Orange
+                                'rgba(245, 158, 11, 0.7)',  // Amber
+                                'rgba(16, 185, 129, 0.7)'  // Green
+                            ],
+                            borderColor: [
+                                'rgba(67, 56, 202, 1)',
+                                'rgba(59, 130, 246, 1)',
+                                'rgba(14, 165, 233, 1)',
+                                'rgba(239, 68, 68, 1)',
+                                'rgba(249, 115, 22, 1)',
+                                'rgba(245, 158, 11, 1)',
+                                'rgba(16, 185, 129, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    boxWidth: 12,
+                                    font: {
+                                        size: 11
+                                    },
+                                    padding: 15
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label = label.split(':')[0];
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += ': ' + context.parsed + '%';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- Lógica de Acordeón ---
+            const accordionContainer = document.getElementById('accordion-container');
+            if (accordionContainer) {
+                accordionContainer.addEventListener('click', function(e) {
+                    const button = e.target.closest('.accordion-button');
+                    if (button) {
+                        const contentId = button.dataset.accordion;
+                        const content = document.getElementById(contentId);
+                        
+                        button.classList.toggle('open');
+                        content.classList.toggle('hidden');
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>
