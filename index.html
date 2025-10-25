@@ -16,9 +16,9 @@
    - Library/Method: Vanilla JS (toggle de clases 'hidden').
 3. Report Info: Cronograma del curso (Fechas de SAs de p. 28 del PDF) + Fechas de exámenes y tutorías.
    - Goal: Informar (Línea de tiempo y Fechas Clave).
-   - Viz/Method: Lista de eventos estructurada (HTML) para SAs, y listas/párrafos estructurados para exámenes/tutorías.
+   - Viz/Method: Lista de eventos estructurada (HTML) para SAs, y listas/párrafos estructurados para exámenes/tutorías. Reutilizado el formato visual de exámenes de Cloud.
    - Interaction: Ninguna.
-   - Justification: Proporciona un calendario claro del ritmo del curso y las fechas importantes. Modificado para reflejar que SA8 es en 2º curso y añadir fechas específicas.
+   - Justification: Proporciona un calendario claro del ritmo del curso y las fechas importantes. Modificado para reflejar que SA8 es en 2º curso y añadir fechas específicas. Ajustada fecha inicio SA1.
    - Library/Method: HTML/Tailwind.
 -->
 <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
@@ -337,15 +337,60 @@
 
             <!-- SECCIÓN 4: CALENDARIO -->
             <section id="calendario" class="content-section card">
-                <p class="text-lg text-gray-600 mb-6">
-                    Aquí encontrarás las fechas importantes del curso, incluyendo el cronograma orientativo de las Situaciones de Aprendizaje (SA), los exámenes parciales y las convocatorias finales.
+                 <p class="text-lg text-gray-600 mb-6">
+                    Aquí encontrarás las fechas importantes del curso 2025-2026, incluyendo el cronograma orientativo de las Situaciones de Aprendizaje (SA), los exámenes parciales y las convocatorias finales.
                 </p>
+
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Fechas de Exámenes y Convocatorias</h2>
+                <div class="space-y-4 mb-8">
+                    <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start space-x-4">
+                        <span class="text-2xl mt-1">🗓️</span>
+                        <div>
+                            <h3 class="font-semibold text-yellow-800">Examen 1ª Evaluación</h3>
+                            <p class="text-gray-700"><strong>Fecha:</strong> 19 de noviembre de 2025 (miércoles)</p>
+                            <p class="text-gray-700"><strong>Hora:</strong> 15:00 a 17:45</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start space-x-4">
+                        <span class="text-2xl mt-1">🗓️</span>
+                        <div>
+                            <h3 class="font-semibold text-yellow-800">Examen 2ª Evaluación</h3>
+                            <p class="text-gray-700"><strong>Fecha:</strong> 04 de marzo de 2026 (miércoles)</p>
+                            <p class="text-gray-700"><strong>Hora:</strong> 18:05 a 20:50</p>
+                        </div>
+                    </div>
+                     <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start space-x-4">
+                        <span class="text-2xl mt-1">🗓️</span>
+                        <div>
+                            <h3 class="font-semibold text-yellow-800">Examen 3ª Evaluación</h3>
+                            <p class="text-gray-700"><strong>Fecha:</strong> 27 de mayo de 2026 (miércoles)</p>
+                            <p class="text-gray-700"><strong>Hora:</strong> 18:05 a 20:50</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-start space-x-4">
+                        <span class="text-2xl mt-1">✅</span>
+                        <div>
+                            <h3 class="font-semibold text-blue-800">Convocatoria Ordinaria</h3>
+                            <p class="text-gray-700"><strong>Fecha:</strong> 03 de junio de 2026 (miércoles)</p>
+                            <p class="text-gray-700"><strong>Hora:</strong> 15:00 a 17:45</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-4">
+                        <span class="text-2xl mt-1">🔄</span>
+                        <div>
+                            <h3 class="font-semibold text-red-800">Convocatoria Extraordinaria</h3>
+                            <p class="text-gray-700"><strong>Fecha:</strong> 25 de junio de 2026 (jueves)</p>
+                            <p class="text-gray-700"><strong>Hora:</strong> 18:05 a 20:50</p>
+                        </div>
+                    </div>
+                </div>
 
                 <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Cronograma Orientativo (Curso 2025-2026)</h2>
                 <div class="space-y-4 mb-8">
-                    <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                     <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
                         <h3 class="font-semibold text-gray-800">SA 1: Explotación de sistemas</h3>
-                        <p class="text-gray-700">10 de sep. 2025 - 08 de oct. 2025</p>
+                        <p class="text-gray-700">17 de sep. 2025 - 08 de oct. 2025</p>
+                        <p class="text-sm text-gray-500 mt-1">(Presentación del módulo: 10 de septiembre)</p>
                     </div>
                     <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
                         <h3 class="font-semibold text-gray-800">SA 2: Instalación de SO</h3>
@@ -377,39 +422,6 @@
                     <strong>Nota Importante:</strong> La <strong>SA 8 (Formación en Empresa)</strong> se realiza durante el <strong>segundo curso</strong> académico y no se incluye en este cronograma del primer año.
                 </p>
 
-                <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Fechas Clave (Exámenes y Tutorías)</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Exámenes -->
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-semibold text-gray-800">Exámenes Parciales</h3>
-                        <ul class="list-disc pl-5 space-y-1">
-                            <li><strong>1ª Evaluación:</strong> 19/11/2025 (Miércoles) de 15:00 a 17:45.</li>
-                            <li><strong>2ª Evaluación:</strong> 04/03/2026 (Miércoles) de 18:05 a 20:50.</li>
-                            <li><strong>3ª Evaluación:</strong> 27/05/2026 (Miércoles) de 18:05 a 20:50.</li>
-                        </ul>
-                        <h3 class="text-xl font-semibold text-gray-800 pt-2">Convocatorias Oficiales (Final)</h3>
-                        <ul class="list-disc pl-5 space-y-1">
-                            <li><strong>Ordinaria:</strong> 03/06/2026 (Miércoles) de 15:00 a 17:45.</li>
-                            <li><strong>Extraordinaria:</strong> 25/06/2026 (Jueves) de 18:05 a 20:50.</li>
-                        </ul>
-                    </div>
-                    <!-- Tutorías -->
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-semibold text-gray-800">Tutorías</h3>
-                         <ul class="list-disc pl-5 space-y-1">
-                            <li><strong>Colectivas:</strong> Miércoles de 15:00 a 16:50.</li>
-                            <li><strong>Individuales (Horario Fijo):</strong>
-                                <ul class="list-['-_'] pl-4">
-                                    <li>Miércoles de 16:50 a 17:45.</li>
-                                    <li>Miércoles de 18:05 a 19:00.</li>
-                                </ul>
-                            </li>
-                            <li><strong>Individuales (A demanda):</strong> 2 horas semanales adicionales, a concretar con la profesora.</li>
-                        </ul>
-                        <p class="text-sm text-gray-500 pt-2">Recuerda concretar las tutorías individuales a demanda con la profesora.</p>
-                    </div>
-                </div>
-
             </section>
 
             <!-- SECCIÓN 5: TUTORÍAS Y CONTACTO -->
@@ -421,16 +433,16 @@
                     <!-- Columna de Horarios y Contacto -->
                     <div class="space-y-6">
                          <div>
-                            <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Horarios Específicos de Tutorías</h2>
+                            <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Horarios Específicos de Tutorías (Miércoles)</h2>
                              <ul class="list-disc pl-5 space-y-1 text-gray-700">
-                                <li><strong>Colectivas:</strong> Miércoles de 15:00 a 16:50.</li>
+                                <li><strong>Colectivas:</strong> 15:00 - 16:50.</li>
                                 <li><strong>Individuales (Horario Fijo):</strong>
                                     <ul class="list-['-_'] pl-4">
-                                        <li>Miércoles de 16:50 a 17:45.</li>
-                                        <li>Miércoles de 18:05 a 19:00.</li>
+                                        <li>16:50 - 17:45.</li>
+                                        <li>18:05 - 19:00.</li>
                                     </ul>
                                 </li>
-                                <li><strong>Individuales (A demanda):</strong> 2 horas semanales adicionales, a concretar con la profesora.</li>
+                                <li><strong>Individuales (A demanda):</strong> Posibilidad de 2 horas semanales adicionales, a concretar con la profesora.</li>
                             </ul>
                             <p class="text-sm text-gray-500 mt-2">Es importante acordar las tutorías individuales a demanda.</p>
                         </div>
@@ -588,129 +600,3 @@
 </body>
 </html>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            
-            // --- Lógica de Navegación por Pestañas ---
-            const navLinks = document.querySelectorAll('.nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
-            const mainContent = document.querySelector('main');
-
-            function showSection(targetId) {
-                contentSections.forEach(section => {
-                    if (section.id === targetId) {
-                        section.style.display = 'block';
-                    } else {
-                        section.style.display = 'none';
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    if (link.dataset.target === targetId) {
-                        link.classList.add('nav-link-active');
-                    } else {
-                        link.classList.remove('nav-link-active');
-                    }
-                });
-            }
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    const targetId = e.target.dataset.target;
-                    showSection(targetId);
-                });
-            });
-
-            showSection('inicio');
-
-            // --- Lógica del Gráfico Chart.js ---
-            const raChartCtx = document.getElementById('raChart');
-            if (raChartCtx) {
-                const raChart = new Chart(raChartCtx.getContext('2d'), {
-                    type: 'doughnut',
-                    data: {
-                        labels: [
-                            'RA1: Evalúa sistemas (15%)',
-                            'RA2: Instala SO (7%)',
-                            'RA3: Gestiona info (13%)',
-                            'RA4: Gestiona SO (25%)',
-                            'RA5: Interconecta redes (17%)',
-                            'RA6: Opera en red (15%)',
-                            'RA7: Elabora doc (8%)'
-                        ],
-                        datasets: [{
-                            label: 'Ponderación de Notas',
-                            data: [15, 7, 13, 25, 17, 15, 8],
-                            backgroundColor: [
-                                'rgba(67, 56, 202, 0.7)',  // Indigo
-                                'rgba(59, 130, 246, 0.7)', // Blue
-                                'rgba(14, 165, 233, 0.7)', // Sky
-                                'rgba(239, 68, 68, 0.7)',   // Red
-                                'rgba(249, 115, 22, 0.7)',  // Orange
-                                'rgba(245, 158, 11, 0.7)',  // Amber
-                                'rgba(16, 185, 129, 0.7)'  // Green
-                            ],
-                            borderColor: [
-                                'rgba(67, 56, 202, 1)',
-                                'rgba(59, 130, 246, 1)',
-                                'rgba(14, 165, 233, 1)',
-                                'rgba(239, 68, 68, 1)',
-                                'rgba(249, 115, 22, 1)',
-                                'rgba(245, 158, 11, 1)',
-                                'rgba(16, 185, 129, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    boxWidth: 12,
-                                    font: {
-                                        size: 11
-                                    },
-                                    padding: 15
-                                }
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.label || '';
-                                        if (label) {
-                                            label = label.split(':')[0];
-                                        }
-                                        if (context.parsed !== null) {
-                                            label += ': ' + context.parsed + '%';
-                                        }
-                                        return label;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            // --- Lógica de Acordeón ---
-            const accordionContainer = document.getElementById('accordion-container');
-            if (accordionContainer) {
-                accordionContainer.addEventListener('click', function(e) {
-                    const button = e.target.closest('.accordion-button');
-                    if (button) {
-                        const contentId = button.dataset.accordion;
-                        const content = document.getElementById(contentId);
-                        
-                        button.classList.toggle('open');
-                        content.classList.toggle('hidden');
-                    }
-                });
-            }
-
-        });
-    </script>
-</body>
-</html>
