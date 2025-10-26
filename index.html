@@ -8,15 +8,15 @@
    - Interaction: Hover para tooltip.
    - Justification: Visualiza el peso de cada RA en la nota final, mucho más claro que una tabla.
    - Library/Method: Chart.js (Canvas).
-2. Report Info: Situaciones de Aprendizaje (SA 1-8 y sus temas).
+2. Report Info: Situaciones de Aprendizaje (SA 1-8 y sus temas/horas).
    - Goal: Organizar/Explorar.
-   - Viz/Method: Lista de Acordeón/Colapsable.
+   - Viz/Method: Lista de Acordeón/Colapsable. Actualizadas horas según PD SIN.
    - Interaction: Clic para expandir/colapsar temas.
    - Justification: Maneja la densidad de 8 SAs de forma limpia, permitiendo al usuario enfocarse en la unidad actual.
    - Library/Method: Vanilla JS (toggle de clases 'hidden').
-3. Report Info: Cronograma del curso (Fechas de SAs de p. 28 del PDF) + Fechas de exámenes y tutorías.
+3. Report Info: Cronograma del curso (Fechas de SAs ajustadas según duración, exámenes y PD SIN p.28 y nueva distribución solicitada, considerando semanas de examen como no lectivas) + Fechas de exámenes y tutorías.
    - Goal: Informar (Línea de tiempo y Fechas Clave).
-   - Viz/Method: Lista de eventos estructurada (HTML) para SAs, y listas/párrafos estructurados para exámenes/tutorías. Reutilizado el formato visual de exámenes de Cloud.
+   - Viz/Method: Lista de eventos estructurada (HTML) para SAs, y listas/párrafos estructurados para exámenes/tutorías. Reutilizado el formato visual de exámenes de Cloud. Añadidos hitos de evaluación al cronograma. Cronograma ajustado para reflejar interrupción por semana de exámenes y nueva distribución.
    - Interaction: Ninguna.
    - Justification: Proporciona un calendario claro del ritmo del curso y las fechas importantes. Modificado para reflejar que SA8 es en 2º curso y añadir fechas específicas. Ajustada fecha inicio SA1.
    - Library/Method: HTML/Tailwind.
@@ -388,34 +388,57 @@
                 <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Cronograma Orientativo (Curso 2025-2026)</h2>
                 <div class="space-y-4 mb-8">
                      <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
-                        <h3 class="font-semibold text-gray-800">SA 1: Explotación de sistemas</h3>
-                        <p class="text-gray-700">17 de sep. 2025 - 08 de oct. 2025</p>
-                        <p class="text-sm text-gray-500 mt-1">(Presentación del módulo: 10 de septiembre)</p>
+                        <h3 class="font-semibold text-gray-800">SA 1: Explotación de sistemas (20h)</h3>
+                        <p class="text-gray-700">10 de sep. 2025 - 08 de oct. 2025</p>
                     </div>
                     <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
-                        <h3 class="font-semibold text-gray-800">SA 2: Instalación de SO</h3>
+                        <h3 class="font-semibold text-gray-800">SA 2: Instalación de SO (10h)</h3>
                         <p class="text-gray-700">09 de oct. 2025 - 22 de oct. 2025</p>
                     </div>
                     <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
-                        <h3 class="font-semibold text-gray-800">SA 3: Gestión de la información</h3>
-                        <p class="text-gray-700">23 de oct. 2025 - 19 de nov. 2025</p>
+                        <h3 class="font-semibold text-gray-800">SA 3: Gestión de la información (20h)</h3>
+                        <p class="text-gray-700">23 de oct. 2025 - <strong>16 de nov. 2025</strong></p>
+                        <p class="text-sm text-gray-500 mt-1">(Finaliza el domingo antes de la semana de exámenes)</p>
+                    </div>
+                    <!-- Hito de Evaluación 1 -->
+                    <div class="p-4 bg-yellow-50 border border-yellow-300 rounded-lg flex items-center space-x-3 my-2">
+                        <span class="text-xl">🗓️</span>
+                        <p class="font-semibold text-yellow-800">Examen 1ª Evaluación: 19 de Noviembre</p>
+                    </div>
+                     <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                        <h3 class="font-semibold text-gray-800">SA 4: Configuración de SO (42h)</h3>
+                        <p class="text-gray-700"><strong>24 de nov. 2025</strong> - <strong>06 de feb. 2026</strong></p>
+                         <p class="text-sm text-gray-500 mt-1">(Comienza lunes post-examen, incluye vacaciones)</p>
                     </div>
                     <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
-                        <h3 class="font-semibold text-gray-800">SA 4: Configuración de SO</h3>
-                        <p class="text-gray-700">19 de dic. 2025 - 28 de ene. 2026</p>
-                        <p class="text-sm text-gray-500 mt-1">(Nota: Hay un período de descanso/evaluación entre SA3 y SA4 según el calendario).</p>
+                        <h3 class="font-semibold text-gray-800">SA 5 (Parte 1 ~75%): Conexión de redes (~24h)</h3>
+                        <p class="text-gray-700"><strong>09 de feb. 2026</strong> - <strong>01 de mar. 2026</strong></p>
+                         <p class="text-sm text-gray-500 mt-1">(Finaliza el domingo antes de la semana de exámenes)</p>
+                    </div>
+                     <!-- Hito de Evaluación 2 -->
+                    <div class="p-4 bg-yellow-50 border border-yellow-300 rounded-lg flex items-center space-x-3 my-2">
+                        <span class="text-xl">🗓️</span>
+                        <p class="font-semibold text-yellow-800">Examen 2ª Evaluación: 04 de Marzo</p>
                     </div>
                     <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
-                        <h3 class="font-semibold text-gray-800">SA 5: Conexión de redes</h3>
-                        <p class="text-gray-700">29 de ene. 2026 - 11 de mar. 2026</p>
+                        <h3 class="font-semibold text-gray-800">SA 5 (Parte 2 ~25%): Conexión de redes (~8h)</h3>
+                        <p class="text-gray-700"><strong>09 de mar. 2026</strong> - <strong>18 de mar. 2026</strong></p>
+                         <p class="text-sm text-gray-500 mt-1">(Comienza lunes post-examen)</p>
                     </div>
                     <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
-                        <h3 class="font-semibold text-gray-800">SA 6: Gestión de recursos en red</h3>
-                        <p class="text-gray-700">12 de mar. 2026 - 15 de abr. 2026</p>
+                        <h3 class="font-semibold text-gray-800">SA 6: Gestión de recursos en red (22h)</h3>
+                        <p class="text-gray-700"><strong>19 de mar. 2026</strong> - <strong>06 de may. 2026</strong></p>
+                         <p class="text-sm text-gray-500 mt-1">(Incluye vacaciones de Semana Santa)</p>
                     </div>
                     <div class="p-4 bg-gray-100 border border-gray-200 rounded-lg">
-                        <h3 class="font-semibold text-gray-800">SA 7: Explotación de aplicaciones</h3>
-                        <p class="text-gray-700">16 de abr. 2026 - 22 de abr. 2026</p>
+                        <h3 class="font-semibold text-gray-800">SA 7: Explotación de aplicaciones (5h)</h3>
+                        <p class="text-gray-700"><strong>07 de may. 2026</strong> - <strong>13 de may. 2026</strong></p>
+                         <p class="text-sm text-gray-500 mt-1">(Finaliza antes de la semana de exámenes)</p>
+                    </div>
+                     <!-- Hito de Evaluación 3 -->
+                    <div class="p-4 bg-yellow-50 border border-yellow-300 rounded-lg flex items-center space-x-3 my-2">
+                        <span class="text-xl">🗓️</span>
+                        <p class="font-semibold text-yellow-800">Examen 3ª Evaluación: 27 de Mayo</p>
                     </div>
                 </div>
                  <p class="mb-8 text-md text-gray-600 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
